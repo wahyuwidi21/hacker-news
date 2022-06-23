@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">HackerNews</string>
+    <string name="error">Error</string>
+    <string name="jumlah_komentar">Jumlah Komentar :</string>
+    <string name="score">Score :</string>
+    <string name="top_stories">Top Stories</string>
+    <string name="story_detail">Story Detail</string>
+    <string name="komentar">Komentar</string>
+</resources>

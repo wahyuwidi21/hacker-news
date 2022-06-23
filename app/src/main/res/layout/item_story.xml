@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_story"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:elevation="10dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="21dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.30"/>
+
+        <TextView
+            android:id="@+id/story_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Judul Story" />
+
+        <TextView
+            android:id="@+id/label_jumlah_komentar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/jumlah_komentar"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/story_title"
+            app:layout_constraintTop_toBottomOf="@id/story_title" />
+
+        <TextView
+            android:id="@+id/value_jumlah_komentar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="202"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/label_jumlah_komentar"
+            app:layout_constraintTop_toTopOf="@id/label_jumlah_komentar" />
+
+        <TextView
+            android:id="@+id/label_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/score"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/label_jumlah_komentar"
+            app:layout_constraintTop_toBottomOf="@id/label_jumlah_komentar" />
+
+
+        <TextView
+            android:id="@+id/value_score"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="10"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/label_jumlah_komentar"
+            app:layout_constraintTop_toTopOf="@id/label_score" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
