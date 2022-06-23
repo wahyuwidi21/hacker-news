@@ -10,9 +10,9 @@ data class Comment(
     @PrimaryKey
     val id: String,
     @SerializedName("by")
-    val by: String,
+    val by: String?,
     @SerializedName("text")
-    val text: String,
+    val text: String?,
     @SerializedName("kids")
     val kids: List<Int>?,
     @SerializedName("time")

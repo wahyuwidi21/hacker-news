@@ -2,20 +2,12 @@ package com.codex.hackernews.data.source.local
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.codex.hackernews.data.model.Item
+import com.google.gson.Gson
 import javax.inject.Inject
 
 class PreferencesManager @Inject constructor(context: Context) {
-
-    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("cat-remote-key",Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences("hacker_news", Context.MODE_PRIVATE)
     private var editor = sharedPreferences.edit()
-
-    var prefRemoteKey: Int?
-        get() {
-            return sharedPreferences.getInt("REMOTE_KEY", 1)
-        }
-        set(value) {
-            if (value != null) {
-                editor.putInt("REMOTE_KEY", value)?.apply()
-            }
-        }
 }

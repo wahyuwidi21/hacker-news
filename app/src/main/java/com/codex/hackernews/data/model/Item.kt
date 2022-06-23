@@ -29,5 +29,5 @@ data class Item(
     val type: String,
     @SerializedName("url")
     val url: String?,
-    var isFavourite:Boolean = false
+    var isFavourite:Boolean?
 ):Parcelable

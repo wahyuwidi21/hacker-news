@@ -1,6 +1,7 @@
 package com.codex.hackernews.ui.fragment
 
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,9 @@ import com.codex.hackernews.databinding.FragmentStoryBinding
 import com.codex.hackernews.ui.adapter.StoryAdapter
 import com.codex.hackernews.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
@@ -37,7 +41,7 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>(false) 
 
     override fun onReadyAction() {
 
-        storyAdapter =   StoryAdapter {
+        storyAdapter = StoryAdapter {
             val bundle =
                 bundleOf(
                     "data" to it
@@ -53,29 +57,17 @@ class StoryFragment : BaseFragment<FragmentStoryBinding, StoryViewModel>(false) 
             layoutManager = LinearLayoutManager(requireContext())
             adapter = storyAdapter
         }
-        storyViewModel.getItems()
     }
 
     override fun onObserveAction() {
         viewLifecycleOwner.lifecycleScope.launch {
-            storyViewModel.storyitems.observe(viewLifecycleOwner,{
-                when(it.status){
-                    Resource.Status.LOADING  -> {
-                        binding.cpLoading.visibility = View.VISIBLE
-                    }
-                    Resource.Status.SUCCESS  -> {
-                        if (!it.data.isNullOrEmpty()){
-
-                         storyAdapter.submitData(it.data)
-                            binding.cpLoading.visibility = View.GONE
-                        }
-                        binding.cpLoading.visibility = View.GONE
-                    }
-                    Resource.Status.ERROR  -> {
-                        binding.cpLoading.visibility = View.GONE
-                    }
-                }
-            })
+            storyViewModel.getStories().catch { e ->
+                binding.cpLoading.visibility = View.GONE
+                Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            }.collect {
+                storyAdapter.submitData(it)
+                binding.cpLoading.visibility = View.GONE
+            }
         }
     }
 }

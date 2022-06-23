@@ -3,8 +3,11 @@ package com.codex.hackernews.ui.adapter
 import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.codex.hackernews.AssesmentApp
+import com.codex.hackernews.R
 import com.codex.hackernews.data.model.Item
 import com.codex.hackernews.databinding.ItemStoryBinding
 
@@ -31,9 +34,10 @@ class StoryAdapter(
 
     override fun getItemCount(): Int = listItem.size
 
-    fun submitData(list:List<Item>){
-        listItem.addAll(list)
-        notifyItemInserted(1)
+
+    fun submitData(item:Item){
+        listItem.add(item)
+        notifyItemInserted(itemCount+1)
     }
 
     class ViewHolder(private val binding: ItemStoryBinding) :
@@ -43,6 +47,12 @@ class StoryAdapter(
             binding.storyTitle.text = data.title
             binding.valueJumlahKomentar.text = data.descendants.toString()
             binding.valueScore.text = data.score.toString()
+            val drawable = if (data.isFavourite == true){
+                ResourcesCompat.getDrawable(AssesmentApp.applicationContext().resources, R.drawable.ic_star_yellow, null)
+            }else{
+                ResourcesCompat.getDrawable(AssesmentApp.applicationContext().resources, R.drawable.ic_star_grey, null)
+            }
+            binding.isFavourite.setImageDrawable(drawable)
         }
     }
 }

@@ -9,6 +9,9 @@ import com.codex.hackernews.data.repository.StoryRepository
 import com.codex.hackernews.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.onErrorCollect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.lang.Exception
@@ -25,17 +28,8 @@ class StoryViewModel @Inject constructor(
     val storyitems:MutableLiveData<Resource<List<Item>>>
         get() = _storyItems
 
-    internal fun getItems() {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                _storyItems.postValue(Resource.loading(null))
-                try {
-                    _storyItems.postValue(Resource.success(storyRepository.getListStoryItem()))
-                } catch (e: Exception) {
-                    _storyItems.postValue(Resource.error(e.toString(), null, Throwable(e.message, null)))
-                }
-            }
-        }
+    suspend fun getStories (): Flow<Item> {
+      return storyRepository.getListStoryItem()
     }
 
 }
